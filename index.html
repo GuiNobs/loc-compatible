@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Enviar Localização</title>
+</head>
+<body>
+  <h2>Toque no botão abaixo para me enviar sua localização:</h2>
+  <button onclick="getLocation()">📍 Enviar Localização</button>
+  <p id="status"></p>
+
+  <script>
+    function getLocation() {
+      const status = document.getElementById("status");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        status.innerText = "Obtendo localização...";
+      } else {
+        status.innerText = "Seu dispositivo não suporta geolocalização.";
+      }
+    }
+
+    function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      window.location.href = `https://wa.me/5511943303273?text=Minha%20localiza%C3%A7%C3%A3o:%20${encodeURIComponent(link)}`;
+    }
+
+    function showError(error) {
+      const status = document.getElementById("status");
+      status.innerText = "Erro ao obter localização.";
+    }
+  </script>
+</body>
+</html>
